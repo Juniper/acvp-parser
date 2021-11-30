@@ -2,7 +2,19 @@ use json::JsonValue;
 
 use crate::{AcvpError, AcvpResult};
 
-const HASHES: &[&str; 5] = &["SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512"];
+const HASHES: &[&str; 11] = &[
+    "SHA-1",
+    "SHA-224",
+    "SHA-256",
+    "SHA-384",
+    "SHA-512",
+    "SHA3-224",
+    "SHA3-256",
+    "SHA3-384",
+    "SHA3-512",
+    "SHAKE-128",
+    "SHAKE-256",
+];
 
 const BLKCIPHERS: &[&str; 6] = &[
     "ACVP-AES-CBC",
