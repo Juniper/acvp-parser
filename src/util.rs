@@ -13,12 +13,16 @@ const BLKCIPHERS: &[&str; 6] = &[
     "ACVP-TDES-CBC",
 ];
 
-const MACS: &[&str; 9] = &[
+const MACS: &[&str; 13] = &[
     "HMAC-SHA-1",
     "HMAC-SHA2-224",
     "HMAC-SHA2-256",
     "HMAC-SHA2-384",
     "HMAC-SHA2-512",
+    "HMAC-SHA3-224",
+    "HMAC-SHA3-256",
+    "HMAC-SHA3-384",
+    "HMAC-SHA3-512",
     "CMAC-AES",
     "CMAC-TDES",
     "ACVP-AES-GCM",
