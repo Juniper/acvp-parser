@@ -1,7 +1,10 @@
+use std::str::FromStr;
+
 use json::JsonValue;
 
 use crate::{
     blkcipher::BlkCipherMCTOutput,
+    drbg::DrbgMode,
     msgauth::MsgAuthOutput,
     util::{AcvpAlgorithm, Direction, IVMode, TestType},
     AcvpError, AcvpResult,
@@ -44,8 +47,11 @@ pub struct TestGroupData {
     // pub n: Vec<u8>,
     // pub e: Vec<u8>,
     // For DRBG
-    // pub prediction_resistence: bool,
-    // pub reseed: bool,
+    pub drbgmode: DrbgMode,
+    pub prediction_resistance: bool,
+    pub reseed: bool,
+    pub der_func: bool,
+    pub returned_bits_len: usize,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -193,6 +199,32 @@ impl<T: TestCase> TestGroup for AcvpTestGroup<T> {
             ivlen = crate::util::get_acvp_u32("ivLen", &tg)? as usize;
         }
 
+        let mut drbgmode = DrbgMode::Nil;
+        if tg.has_key("mode") {
+            let mode = crate::util::get_acvp_str("mode", &tg)?;
+            drbgmode = DrbgMode::from_str(&mode)?;
+        }
+
+        let mut prediction_resistance = false;
+        if tg.has_key("predResistance") {
+            prediction_resistance = crate::util::get_acvp_bool("predResistance", &tg)?;
+        }
+
+        let mut der_func = false;
+        if tg.has_key("derFunc") {
+            der_func = crate::util::get_acvp_bool("derFunc", &tg)?;
+        }
+
+        let mut reseed = false;
+        if tg.has_key("reSeed") {
+            reseed = crate::util::get_acvp_bool("reSeed", &tg)?;
+        }
+
+        let mut returned_bits_len: usize = 0;
+        if tg.has_key("returnedBitsLen") {
+            returned_bits_len = crate::util::get_acvp_u32("returnedBitsLen", &tg)? as usize;
+        }
+
         let tgdata = TestGroupData {
             algorithm: algorithm.to_string(),
             test_type,
@@ -200,6 +232,11 @@ impl<T: TestCase> TestGroup for AcvpTestGroup<T> {
             ivmode,
             ivlen,
             direction,
+            drbgmode,
+            prediction_resistance,
+            der_func,
+            reseed,
+            returned_bits_len,
         };
 
         let tcs = &tg["tests"];

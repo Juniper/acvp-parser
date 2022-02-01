@@ -15,6 +15,7 @@ impl fmt::Display for AcvpError {
 }
 
 pub mod blkcipher;
+pub mod drbg;
 pub mod hash;
 pub mod msgauth;
 pub mod parser;
@@ -33,6 +34,11 @@ fn test_init() {
         ivmode: util::IVMode::Nil,
         ivlen: 0,
         direction: util::Direction::Nil,
+        drbgmode: drbg::DrbgMode::Nil,
+        prediction_resistance: false,
+        der_func: false,
+        reseed: false,
+        returned_bits_len: 0,
     };
 
     let mut t =

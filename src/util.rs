@@ -41,11 +41,14 @@ const MACS: &[&str; 13] = &[
     "ACVP-AES-GMAC",
 ];
 
+const RNGS: &[&str; 3] = &["hashDRBG", "ctrDRBG", "hmacDRBG"];
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum AcvpAlgorithm {
     Hash,
     MsgAuth,
     BlockCipher,
+    Rng,
     Nil,
 }
 
@@ -59,6 +62,9 @@ impl AcvpAlgorithm {
         }
         if str_lookup(alg, BLKCIPHERS) {
             return Ok(Self::BlockCipher);
+        }
+        if str_lookup(alg, RNGS) {
+            return Ok(Self::Rng);
         }
         Err(AcvpError {
             code: -libc::EINVAL,
