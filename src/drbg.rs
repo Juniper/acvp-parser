@@ -40,7 +40,7 @@ impl std::str::FromStr for DrbgMode {
     type Err = AcvpError;
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub struct DrbgOtherInput {
     pub iuse: String,
     pub addtl_input: Vec<u8>,
@@ -64,7 +64,7 @@ impl DrbgOtherInput {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub struct Drbg {
     algorithm: String,
     tcid: u32,
