@@ -16,13 +16,14 @@ const HASHES: &[&str; 11] = &[
     "SHAKE-256",
 ];
 
-const BLKCIPHERS: &[&str; 6] = &[
+const BLKCIPHERS: &[&str; 7] = &[
     "ACVP-AES-CBC",
     "ACVP-AES-CTR",
     "ACVP-AES-ECB",
     "ACVP-AES-GCM",
     "ACVP-TDES-ECB",
     "ACVP-TDES-CBC",
+    "ACVP-AES-XTS",
 ];
 
 const MACS: &[&str; 13] = &[
