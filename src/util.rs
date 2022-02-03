@@ -4,10 +4,10 @@ use crate::{AcvpError, AcvpResult};
 
 const HASHES: &[&str; 11] = &[
     "SHA-1",
-    "SHA-224",
-    "SHA-256",
-    "SHA-384",
-    "SHA-512",
+    "SHA2-224",
+    "SHA2-256",
+    "SHA2-384",
+    "SHA2-512",
     "SHA3-224",
     "SHA3-256",
     "SHA3-384",
