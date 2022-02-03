@@ -26,7 +26,7 @@ const BLKCIPHERS: &[&str; 7] = &[
     "ACVP-AES-XTS",
 ];
 
-const MACS: &[&str; 13] = &[
+const MACS: &[&str; 14] = &[
     "HMAC-SHA-1",
     "HMAC-SHA2-224",
     "HMAC-SHA2-256",
@@ -40,6 +40,7 @@ const MACS: &[&str; 13] = &[
     "CMAC-TDES",
     "ACVP-AES-GCM",
     "ACVP-AES-GMAC",
+    "ACVP-AES-CCM",
 ];
 
 const RNGS: &[&str; 3] = &["hashDRBG", "ctrDRBG", "hmacDRBG"];
