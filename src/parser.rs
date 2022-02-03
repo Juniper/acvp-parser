@@ -183,9 +183,11 @@ impl<T: TestCase> TestGroup for AcvpTestGroup<T> {
 
         let mut taglen = 0;
         if tg.has_key("tagLen") {
-            taglen = crate::util::get_acvp_u32("tagLen", &tg)? as usize;
+            let taglen_bits = crate::util::get_acvp_u32("tagLen", &tg)? as usize;
+            taglen = taglen_bits / 8;
         } else if tg.has_key("macLen") {
-            taglen = crate::util::get_acvp_u32("macLen", &tg)? as usize;
+            let taglen_bits = crate::util::get_acvp_u32("macLen", &tg)? as usize;
+            taglen = taglen_bits / 8;
         }
 
         let mut ivmode = IVMode::Nil;
