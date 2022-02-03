@@ -196,7 +196,8 @@ impl<T: TestCase> TestGroup for AcvpTestGroup<T> {
 
         let mut ivlen = 0;
         if tg.has_key("ivLen") {
-            ivlen = crate::util::get_acvp_u32("ivLen", &tg)? as usize;
+            let ivlen_bits = crate::util::get_acvp_u32("ivLen", &tg)? as usize;
+            ivlen = ivlen_bits / 8;
         }
 
         let mut drbgmode = DrbgMode::Nil;
@@ -222,7 +223,8 @@ impl<T: TestCase> TestGroup for AcvpTestGroup<T> {
 
         let mut returned_bits_len: usize = 0;
         if tg.has_key("returnedBitsLen") {
-            returned_bits_len = crate::util::get_acvp_u32("returnedBitsLen", &tg)? as usize;
+            let returned_bits = crate::util::get_acvp_u32("returnedBitsLen", &tg)? as usize;
+            returned_bits_len = returned_bits / 8;
         }
 
         let tgdata = TestGroupData {
