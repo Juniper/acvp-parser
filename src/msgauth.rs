@@ -102,6 +102,19 @@ impl TestCase for MsgAuth {
             tag = crate::util::hex2bin(&taghex)?;
         }
 
+        // We need to special case here where the payload may be empty
+        // and the taglength will be set. This issue is seen in ACVP-AES-CCM which
+        // does not specify the tag separately in decryption vectors.
+        if tag.is_empty() && tgdata.direction == Direction::Decrypt {
+            if tgdata.payload_len == 0 {
+                tag = msg.clone();
+                msg = Vec::new();
+            } else {
+                tag = msg[tgdata.payload_len..].to_vec();
+                msg = msg[..tgdata.payload_len].to_vec();
+            }
+        }
+
         Ok(MsgAuth {
             algorithm: tgdata.algorithm.to_string(),
             tcid,
@@ -205,8 +218,14 @@ impl TestResult<MsgAuthOutput> for MsgAuth {
         if self.ivmode == IVMode::Internal {
             res["iv"] = hex::encode(&self.iv).to_ascii_uppercase().into();
         }
-        res["ct"] = hex::encode(result.out).to_ascii_uppercase().into();
-        res["tag"] = hex::encode(result.tag).to_ascii_uppercase().into();
+        if self.algorithm.contains("CCM") {
+            let mut ct = result.out;
+            ct.extend(result.tag.iter());
+            res["ct"] = hex::encode(ct).to_ascii_uppercase().into();
+        } else {
+            res["ct"] = hex::encode(result.out).to_ascii_uppercase().into();
+            res["tag"] = hex::encode(result.tag).to_ascii_uppercase().into();
+        }
         self.res_json = res;
         Ok(())
     }

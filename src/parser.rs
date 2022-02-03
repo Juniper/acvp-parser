@@ -37,6 +37,7 @@ pub struct TestGroupData {
     pub test_type: TestType,
     // For AEAD
     pub taglen: usize,
+    pub payload_len: usize,
     pub ivmode: IVMode,
     pub ivlen: usize,
     // For SKCipher
@@ -190,6 +191,12 @@ impl<T: TestCase> TestGroup for AcvpTestGroup<T> {
             taglen = taglen_bits / 8;
         }
 
+        let mut payload_len = 0;
+        if tg.has_key("payloadLen") {
+            let payloadlen_bits = crate::util::get_acvp_u32("payloadLen", &tg)? as usize;
+            payload_len = payloadlen_bits / 8;
+        }
+
         let mut ivmode = IVMode::Nil;
         if tg.has_key("ivGen") {
             let ivmode_str = crate::util::get_acvp_str("ivGen", &tg)?;
@@ -233,6 +240,7 @@ impl<T: TestCase> TestGroup for AcvpTestGroup<T> {
             algorithm: algorithm.to_string(),
             test_type,
             taglen,
+            payload_len,
             ivmode,
             ivlen,
             direction,
