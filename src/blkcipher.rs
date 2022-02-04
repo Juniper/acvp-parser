@@ -38,6 +38,9 @@ impl TestCase for BlockCipher {
         if test.has_key("iv") {
             let ivhex = crate::util::get_acvp_str("iv", &test)?;
             iv = crate::util::hex2bin(&ivhex)?;
+        } else if test.has_key("tweakValue") {
+            let ivhex = crate::util::get_acvp_str("tweakValue", &test)?;
+            iv = crate::util::hex2bin(&ivhex)?;
         }
 
         let mut key = Vec::new();
