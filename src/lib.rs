@@ -31,6 +31,7 @@ fn test_init() {
         algorithm: "sha1".to_string(),
         test_type: util::TestType::AFT,
         taglen: 0,
+        payload_len: 0,
         ivmode: util::IVMode::Nil,
         ivlen: 0,
         direction: util::Direction::Nil,
