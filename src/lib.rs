@@ -1,3 +1,8 @@
+/*
+ * Copyright 2021-2022 Juniper Networks, Inc.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 use std::fmt;
 
 pub type AcvpResult<T> = std::result::Result<T, AcvpError>;

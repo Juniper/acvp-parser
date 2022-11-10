@@ -1,3 +1,8 @@
+/*
+ * Copyright 2021-2022 Juniper Networks, Inc.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 use json::JsonValue;
 
 use crate::{AcvpError, AcvpResult};

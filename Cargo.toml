@@ -2,7 +2,7 @@
 name = "acvp-parser"
 version = "0.1.1"
 edition = "2021"
-license = "BSD-3-Clause"
+license = "Apache-2.0"
 description = "A Parser for Automated Cryptographic Validation Protocol (ACVP) Test Vectors"
 homepage = "https://github.com/puru1761/acvp-parser"
 repository = "https://github.com/puru1761/acvp-parser"
